@@ -85,6 +85,12 @@ module MailerTags
     tag.attr['id'] ||= 'mailer'
     results = []
     action = Radiant::Config['mailer.post_to_page?'] ? tag.locals.page.url : "/pages/#{tag.locals.page.id}/mail##{tag.attr['id']}"
+    if Radiant::Config['mailer.rot13']
+      def rot13(str)
+        str.tr("A-Ma-mN-Zn-z","N-Zn-zA-Ma-m")
+      end
+      action = rot13(action)
+    end
     results << %(<form action="#{action}" method="post" enctype="multipart/form-data" #{mailer_attrs(tag)}>)
     results <<   tag.expand
     results << %(</form>)
