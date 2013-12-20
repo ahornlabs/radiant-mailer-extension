@@ -91,7 +91,7 @@ module MailerTags
       end
       action = rot13(action)
     end
-    results << %(<form action="#{action}" method="post" enctype="multipart/form-data" #{mailer_attrs(tag)}>)
+    results << %(<form action="#{action}" method="post" data-obfuscated="#{Radiant::Config['mailer.rot13']}" enctype="multipart/form-data" #{mailer_attrs(tag)}>)
     results <<   tag.expand
     results << %(</form>)
     results << %(
